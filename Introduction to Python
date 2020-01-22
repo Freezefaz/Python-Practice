@@ -1,0 +1,130 @@
+
+## Test 1 Program: Allergy Check ##
+
+# [ ] get input for input_test variable
+food_test = input("Something eaten in the last 24 hours: ")
+
+# [ ] print "True" message if "dairy" is in the input or False message if not
+print('Is it True that',food_test ,'contains "dairy" =', 'dairy' in food_test)
+
+# [ ] print True message if "nuts" is in the input or False if not
+print('Is it True that', food_test ,'contains "nuts" =', 'nuts' in food_test)
+
+# [ ] Challenge: Check if "seafood" is in the input - print message
+print('Is it True that', food_test , 'contains "seafood" =', 'seafood' in food_test.lower())
+
+# [ ] Challenge: Check if "chocolate" is in the input - print message
+print('Is it True that', food_test , 'contains "chocolate" =', 'chocalate' in food_test.lower())
+
+
+## Test 2 Program: fishstore() ##
+
+# fishstore() takes 2 string arguments: fish & price
+# fishstore returns a string in sentence form
+# gather input for fish_entry and price_entry to use in calling fishstore()
+# print the return value of fishstore()
+
+def fishstore(fish,price):
+    return "Fish Type: " + fish.title() + " costs $" + price
+
+fish_entry = input("Type of fish: ")
+price_entry = input("Price of fish: ")
+
+output = fishstore(fish_entry,price_entry)
+
+print(output)
+
+
+## Test 3 Program: Cheese Order ##
+
+# set values for maximum and minimum order variables
+# set value for price variable
+# get order_amount input and cast to a number
+# check order_amount and give message checking against
+ #   over maximum
+ #   under minimum
+# else within maximum and minimum give message with calculated price
+
+max_weight = 100
+min_weight = 1
+
+def cheese_order(order_amount):
+        if float(order_amount) >= max_weight:
+            return str(order_amount) + " is more than currently available stock"
+        elif float(order_amount) <= min_weight:
+            return str(order_amount) + " is below minimum order amount"
+        else:
+            price = float(order_amount) * 2
+            return str(order_amount) + " cost $"+ str(price)
+
+order_amount = input("Enter cheese order weight (numeric value): ")
+
+print(cheese_order(order_amount))
+
+
+## Test 4 Program: str_analysis() Function ##
+
+# Create the str_analysis() function that takes 1 string argument and returns a string message. 
+# The message will be an analysis of a test string that is passed as an argument to str_analysis(). 
+# The function should respond with messages such as:
+  # "big number"
+  # "small number"
+  #  "all alphabetic"
+  #  "multiple character types"
+
+guess = input("Enter a word or an integer: ")
+while guess.isalnum() == False:
+    guess = input("Enter a word or an integer: ")
+if guess.isalpha():
+    print("\"" + guess + "\"" " is all alphabetical.")
+elif guess.isdigit():
+    if int(guess) > 99:
+        print(guess,"is a large number")
+    elif int(guess) <= 99:
+        print(guess,"is a small number")
+else:
+    print("You have entered multiple character types")
+
+
+## Final Test Program: adding_report() function ##
+
+# This program calls the adding_report() function which repeatedly takes positive integer input until the user quits and then sums the integers and prints a "report".
+# The adding_report() function has 1 string parameter which indicates the type of report:
+    #"A" used as the argument to adding_report() results in printing of all of the input integers and the total
+    #"T" used as the argument results in printing only the total
+
+def adding_report():
+    print("Report types \"A\" for All Items or \"T\" for Total")
+    total = 0
+    items = ""
+    report = input("Please choose \"A\" or \"T\": ")
+    while report != "a" and report != "t":
+        report = input("Invalid. Please choose \"A\" or \"T\": ")
+        
+    num = input("Enter an integer to add to total or \"Q\" to quit: ")
+    while True:
+        if num.isdigit():
+                if report.lower() == "a":
+                    total = total + int(num)
+                    items = items + str("\n" + num)
+                    num = input("Enter an integer to add to total or \"Q\" to quit: ")
+                elif report.lower() == "t":
+                    total = total + int(num)
+                    num = input("Enter an integer to add to total or \"Q\" to quit: ")
+        elif num.isdigit() == False and num.lower() != "q":
+            print("Invalid input.")
+            num = input("Enter an integer to add to total or \"Q\" to quit: ")
+        else:
+            num.lower() == "q"
+            print("Thank you.\n")
+            break
+    
+    if report == "a":
+              print("Items: " + items + "\n\nTotal:\n" + str(total))
+    else:
+              print("Total:\n" + str(total))
+    return
+
+adding_report()
+
+
