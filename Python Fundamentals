@@ -1,0 +1,169 @@
+
+## Test 1 Program: Words after "G"/"g" ##
+
+# Create a program inputs a phrase (like a famous quotation) and prints all of the words that start with h-z
+
+quote = "Wheresoever you go, go with all your heart"
+word = ""
+
+for character in quote:
+    if character.isalpha():
+        word += character
+    else:
+        if word.lower() >= "h".lower():
+            print(word.upper())
+            word = ""
+        else:
+            word = ""
+
+print(word.upper())
+
+
+## Test 2 Program: list-o-matic ##
+
+# This program takes string input and checks if that string is in a list of strings 
+
+animals_list = ["cat", "goat", "dog"]
+
+def animals():
+    print("Look at all the animals:",animals_list)
+    animal = input("Enter the name of an animal or \"Quit\": ")
+    if animal.lower() == "quit":
+        print("Goodbye!")
+        
+    else:
+        while True:
+            if animal == "" or animal == " ":
+                return print(animals_list.pop(),"popped from list")
+            elif animal not in animals_list:
+                animals_list.append(animal)
+                return print("1 instance of",animal,"appended to list.")
+            elif animal in animals_list:
+                animals_list.remove(animal)
+                return print("1 instance of",animal,"removed to list.")
+                    
+animals()
+print(animals_list)   
+
+
+## Test 3 Program: Poem mixer ##
+
+# This program takes string input and then prints out a mixed order version of the string  
+
+while True:
+    poem = input("Enter a saying or poem or \"Quit\": ") #put this in loop if not will not work
+    if poem == "" or poem == " " or poem.isdigit():
+        print("Invalid. Please enter letters.")
+    elif poem.lower() == "quit":
+        print("Thank you.")
+        break
+    else:
+        poem_list = poem.split()
+        print(poem_list)
+        break
+
+poem_len = len(poem_list)
+print("Length of list:",poem_len,"\n")
+new_poem = []
+for i in range(len(poem_list)):
+    if len(poem_list[i]) < 4:
+        poem_list[i] = poem_list[i].lower()
+    elif len(poem_list[i]) > 6:
+        poem_list[i] = poem_list[i].upper()
+    else:
+        pass
+print(poem_list,"\n")
+
+def word_mixer(poem_list):
+    poem_list.sort()
+    new_list = []
+    while len(poem_list) > 5:
+        fifth = poem_list.pop(-5)
+        new_list.append(fifth)
+        first = poem_list.pop(0)
+        poem_list.append(first)
+        last = poem_list.pop(-1)
+        new_list.append(last)
+    return new_list
+ 
+string_poem = " ".join(word_mixer(poem_list)) # list to string
+print(string_poem)
+
+
+## Test 4 Program: The Weather ##
+
+# Create a program that:
+    # imports and opens a file
+    # appends additional data to a file
+    # reads from the file to displays each city name and month average high temperature in Celsius
+
+!curl  https://raw.githubusercontent.com/MicrosoftLearning/intropython/master/world_temp_mean.csv -o mean_temp.txt
+    
+mean_temp = open('mean_temp.txt', 'a+')
+mean_temp.write("Rio de Janeiro,Brazil,30.0,18.0\n")
+mean_temp.seek(0) # append start at 0 no need use whence
+headings = mean_temp.readline().strip("\n")
+headings_split = headings.split(",")
+print(headings_split)
+
+city_temp = mean_temp.readline().strip("\n")
+while city_temp:
+    city_list = city_temp.split(",")
+    print(headings_split[0].title(),"of",city_list[0].title(),headings_split[2],"is",city_list[2],"Celsius")
+    city_temp = mean_temp.readline().strip("\n")
+
+mean_temp.close()
+
+
+## Final Program: Element_Quiz ##
+
+# In this program the user enters the name of any 5 of the first 20 Atomic Elements and is given a grade and test report for items correct and incorrect. 
+
+!curl https://raw.githubusercontent.com/MicrosoftLearning/intropython/master/elements1_20.txt -o elements1.txt
+
+elements1 = open('elements1.txt', 'r+')
+elements1_file = elements1.readlines()
+print(elements1_file)
+elements1.seek(0) #need to put seek to restart back if not will elem_str empty
+
+elem_str = []
+first_counter = 0
+while first_counter < 20:
+    elem_str += elements1.readline().lower().strip().split(',')
+    first_counter += 1
+    if first_counter >= 20:
+        break
+
+answer = []
+correct_list = []
+wrong_list = []
+print("List any 5 of the first 20 elements in the Periodic table: ")
+def guess():
+    counter = 0
+    while counter < 5:
+        reply = input("Enter the name of an element: ")
+        if reply.isdigit() or reply == "" or reply == " ":
+            print("Please enter letters")
+        elif reply in answer:
+            print(reply,"was already entered")
+        else:
+            answer.append(reply)
+            counter += 1
+    return #must be aligned with while to get the loop
+guess() # do function must call if not nothing happen!!!
+print(answer)
+
+for reply in answer:
+    if reply in elem_str:
+        correct_list.append(reply)     
+    else:
+        wrong_list.append(reply)
+           
+score = len(correct_list) * 20
+print(str(score) + "% correct")
+print("Found:",correct_list)
+print("Not Found:", wrong_list)
+
+elements1.close()
+
+
